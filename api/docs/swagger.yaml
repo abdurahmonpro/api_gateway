@@ -48,12 +48,91 @@ definitions:
           $ref: '#/definitions/auth_service.User'
         type: array
     type: object
+  book_service.Book:
+    properties:
+      author:
+        type: string
+      cover:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      isbn:
+        type: string
+      pages:
+        type: integer
+      published:
+        type: string
+      status:
+        description: 0-new, 1-reading, 2-finished,
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  book_service.BookListResponse:
+    properties:
+      books:
+        items:
+          $ref: '#/definitions/book_service.Book'
+        type: array
+      count:
+        type: integer
+    type: object
+  book_service.CreateBook:
+    properties:
+      author:
+        type: string
+      cover:
+        type: string
+      isbn:
+        type: string
+      pages:
+        type: integer
+      published:
+        type: integer
+      status:
+        description: 0-new, 1-reading, 2-finished,
+        type: integer
+      title:
+        type: string
+    type: object
+  book_service.UpdateBook:
+    properties:
+      author:
+        type: string
+      cover:
+        type: string
+      id:
+        type: string
+      isbn:
+        type: string
+      pages:
+        type: integer
+      published:
+        type: integer
+      status:
+        description: 0-new, 1-reading, 2-finished,
+        type: integer
+      title:
+        type: string
+    type: object
   http.Response:
     properties:
       data: {}
       description:
         type: string
       status:
+        type: string
+    type: object
+  models.UpdatePatchRequest:
+    properties:
+      fields:
+        additionalProperties: true
+        type: object
+      id:
         type: string
     type: object
 info:
@@ -128,6 +207,337 @@ paths:
       summary: Get User By ID
       tags:
       - User
+  /book:
+    get:
+      consumes:
+      - application/json
+      description: Get Book List
+      operationId: get_book_list
+      parameters:
+      - description: offset
+        in: query
+        name: offset
+        type: integer
+      - description: limit
+        in: query
+        name: limit
+        type: integer
+      - description: search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: BookListResponseBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/book_service.BookListResponse'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get Book List
+      tags:
+      - Book
+    post:
+      consumes:
+      - application/json
+      description: Create Book
+      operationId: create_book
+      parameters:
+      - description: CreateBookRequestBody
+        in: body
+        name: profile
+        required: true
+        schema:
+          $ref: '#/definitions/book_service.CreateBook'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetBookBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/book_service.Book'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Create Book
+      tags:
+      - Book
+  /book/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Book
+      operationId: delete_book
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Book data
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: object
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Delete Book
+      tags:
+      - Book
+    get:
+      consumes:
+      - application/json
+      description: Get Book By ID
+      operationId: get_book_by_id
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: BookBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/book_service.Book'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get Book By ID
+      tags:
+      - Book
+    patch:
+      consumes:
+      - application/json
+      description: Patch Book
+      operationId: patch_book
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: UpdatePatchRequestBody
+        in: body
+        name: profile
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePatchRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Book data
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/book_service.Book'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Patch Book
+      tags:
+      - Book
+    put:
+      consumes:
+      - application/json
+      description: Update Book
+      operationId: update_book
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: UpdateBookRequestBody
+        in: body
+        name: profile
+        required: true
+        schema:
+          $ref: '#/definitions/book_service.UpdateBook'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Book data
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/book_service.Book'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Update Book
+      tags:
+      - Book
+  /book/title/{title}:
+    get:
+      consumes:
+      - application/json
+      description: Get Book By title
+      operationId: get_book_by_title
+      parameters:
+      - description: title
+        in: path
+        name: title
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: BookBody
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/book_service.Book'
+              type: object
+        "400":
+          description: Invalid Argument
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/http.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get Book By title
+      tags:
+      - Book
   /login:
     post:
       consumes:

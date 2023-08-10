@@ -29,6 +29,9 @@ type Config struct {
 	AuthServiceHost string
 	AuthGRPCPort    string
 
+	BookServiceHost string
+	BookGRPCPort    string
+
 	DefaultOffset string
 	DefaultLimit  string
 
@@ -59,6 +62,9 @@ func Load() Config {
 	config.AuthServiceHost = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_HOST", "localhost"))
 	config.AuthGRPCPort = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_PORT", ":9102"))
 
+	config.BookServiceHost = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_HOST", "localhost"))
+	config.BookGRPCPort = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_PORT", ":9101"))
+
 	config.SecretKey = "hello"
 
 	config.DefaultOffset = cast.ToString(getOrReturnDefaultValue("DEFAULT_OFFSET", "0"))
@@ -70,7 +76,7 @@ func Load() Config {
 	config.PostgresPassword = cast.ToString(getOrReturnDefaultValue("POSTGRES_PASSWORD", "aus1003"))
 	config.PostgresDatabase = cast.ToString(getOrReturnDefaultValue("POSTGRES_DATABASE", config.ServiceName))
 
-	config.PostgresMaxConnections = cast.ToInt32(getOrReturnDefaultValue("POSTGRES_MAX_CONNECTIONS", 30))
+	// config.PostgresMaxConnections = cast.ToInt32(getOrReturnDefaultValue("POSTGRES_MAX_CONNECTIONS", 30))
 
 	return config
 }
