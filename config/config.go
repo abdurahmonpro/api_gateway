@@ -52,18 +52,18 @@ func Load() Config {
 
 	config := Config{}
 
-	config.ServiceName = cast.ToString(getOrReturnDefaultValue("SERVICE_NAME", "api_gatewayshelf"))
+	config.ServiceName = cast.ToString(getOrReturnDefaultValue("SERVICE_NAME", "api_gateways"))
 	config.ServiceHost = cast.ToString(getOrReturnDefaultValue("SERVICE_HOST", "localhost"))
-	config.ServicePort = cast.ToString(getOrReturnDefaultValue("SERVICE_PORT", ":9090"))
+	config.ServicePort = cast.ToString(getOrReturnDefaultValue("SERVICE_PORT", ":7000"))
 
 	config.Environment = cast.ToString(getOrReturnDefaultValue("ENVIRONMENT", DebugMode))
 	config.Version = cast.ToString(getOrReturnDefaultValue("VERSION", "1.0"))
 
-	config.AuthServiceHost = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_HOST", "localhost"))
-	config.AuthGRPCPort = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_PORT", ":9102"))
+	config.AuthServiceHost = cast.ToString(getOrReturnDefaultValue("AUTH_SERVICE_HOST", "localhost"))
+	config.AuthGRPCPort = cast.ToString(getOrReturnDefaultValue("AUTH_SERVICE_PORT", ":9102"))
 
-	config.BookServiceHost = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_HOST", "localhost"))
-	config.BookGRPCPort = cast.ToString(getOrReturnDefaultValue("STORE_SERVICE_PORT", ":9101"))
+	config.BookServiceHost = cast.ToString(getOrReturnDefaultValue("BOOK_SERVICE_HOST", "localhost"))
+	config.BookGRPCPort = cast.ToString(getOrReturnDefaultValue("BOOK_SERVICE_PORT", ":9101"))
 
 	config.SecretKey = "hello"
 

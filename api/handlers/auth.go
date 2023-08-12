@@ -73,7 +73,7 @@ func (h *Handler) Register(c *gin.Context) {
 	)
 
 	if err != nil {
-		h.handleResponse(c, http.InternalServerError, err.Error())
+		h.handleResponse(c, http.GRPCError, err.Error())
 		return
 	}
 
