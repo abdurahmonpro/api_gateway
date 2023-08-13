@@ -71,7 +71,6 @@ func (h *Handler) Register(c *gin.Context) {
 			Secret: register.Secret,
 		},
 	)
-
 	if err != nil {
 		h.handleResponse(c, http.GRPCError, err.Error())
 		return
