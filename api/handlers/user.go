@@ -44,8 +44,8 @@ func (h *Handler) CreateUser(c *gin.Context) {
 }
 
 // GetUserByID godoc
-// @ID get_User_by_id
-// @Router /User/{id} [GET]
+// @ID get_user_by_id
+// @Router /user/{id} [GET]
 // @Summary Get User By ID
 // @Description Get User By ID
 // @Tags User
@@ -75,8 +75,8 @@ func (h *Handler) GetUserById(c *gin.Context) {
 }
 //  @Security ApiKeyAuth
 // GetUserList godoc
-// @ID get_User_list
-// @Router /User [GET]
+// @ID get_user_list
+// @Router /user [GET]
 // @Summary Get User List
 // @Description Get User List
 // @Tags User

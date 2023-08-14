@@ -138,75 +138,6 @@ definitions:
 info:
   contact: {}
 paths:
-  /User:
-    get:
-      consumes:
-      - application/json
-      description: Get User List
-      operationId: get_User_list
-      parameters:
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Search
-        in: query
-        name: search
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: UserListResponse
-          schema:
-            $ref: '#/definitions/auth_service.UserListResponse'
-        "400":
-          description: Invalid Argument
-          schema:
-            type: string
-        "500":
-          description: Server Error
-          schema:
-            type: string
-      security:
-      - ApiKeyAuth: []
-      summary: Get User List
-      tags:
-      - User
-  /User/{id}:
-    get:
-      consumes:
-      - application/json
-      description: Get User By ID
-      operationId: get_User_by_id
-      parameters:
-      - description: User ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: UserResponse
-          schema:
-            $ref: '#/definitions/auth_service.User'
-        "400":
-          description: Invalid Argument
-          schema:
-            type: string
-        "500":
-          description: Server Error
-          schema:
-            type: string
-      summary: Get User By ID
-      tags:
-      - User
   /book:
     get:
       consumes:
@@ -631,6 +562,44 @@ paths:
       tags:
       - Authentication
   /user:
+    get:
+      consumes:
+      - application/json
+      description: Get User List
+      operationId: get_user_list
+      parameters:
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Search
+        in: query
+        name: search
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: UserListResponse
+          schema:
+            $ref: '#/definitions/auth_service.UserListResponse'
+        "400":
+          description: Invalid Argument
+          schema:
+            type: string
+        "500":
+          description: Server Error
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Get User List
+      tags:
+      - User
     post:
       consumes:
       - application/json
@@ -659,6 +628,36 @@ paths:
           schema:
             type: string
       summary: Create User
+      tags:
+      - User
+  /user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get User By ID
+      operationId: get_user_by_id
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: UserResponse
+          schema:
+            $ref: '#/definitions/auth_service.User'
+        "400":
+          description: Invalid Argument
+          schema:
+            type: string
+        "500":
+          description: Server Error
+          schema:
+            type: string
+      summary: Get User By ID
       tags:
       - User
 securityDefinitions:
